@@ -1,4 +1,5 @@
-import pyfiglet, os
+import pyfiglet
+import os
 from colored import fg, attr
 
 # Imprime el título en ASCII art
@@ -8,7 +9,7 @@ print(titulo)
 def crear_carpeta_temp():
     # Especificamos la ruta del directorio
     ruta = "core/temp"
-    
+
     # Verificamos si la carpeta ya existe
     if not os.path.exists(ruta):
         # Creamos la carpeta
@@ -17,26 +18,24 @@ def crear_carpeta_temp():
 def eliminar_archivos_temp():
     # Especificamos la ruta del directorio
     ruta = "core/temp"
-    
+
     # Obtenemos una lista de todos los archivos en el directorio
     archivos = os.listdir(ruta)
-    
+
     # Eliminamos cada archivo en la lista
     for archivo in archivos:
         # Combinamos la ruta con el nombre del archivo
         ruta_archivo = os.path.join(ruta, archivo)
-        
+
         # Verificamos que el archivo sea un archivo y no un directorio
         if os.path.isfile(ruta_archivo):
             # Eliminamos el archivo
             os.remove(ruta_archivo)
 
-# Define las funciones para ejecutar cada opción
 def ejecutar_pong():
     os.system("python core/pong.py")
 
-def ejecutar_contacto():
-    os.system("cls")
+def mostrar_contacto():
     contacto = pyfiglet.figlet_format("UwU")
     print(contacto)
     print(f"{fg('magenta')}Autor: {fg('white')}Uriel Dobrovolsky{attr('reset')}")
@@ -44,11 +43,14 @@ def ejecutar_contacto():
     print(f"{fg('blue')}LinkedIn: {fg('white')}https://www.linkedin.com/in/urro/{attr('reset')}")
     input("\nEnter para continuar...")
 
+def salir():
+    exit()
+
 # Define un diccionario que mapea opciones con funciones
 opciones = {
     "1": ejecutar_pong,
-    "2": ejecutar_contacto,
-    "3": exit,
+    "2": mostrar_contacto,
+    "3": salir,
 }
 
 # Define una función para mostrar el menú y obtener la selección del usuario
@@ -71,5 +73,13 @@ while True:
     crear_carpeta_temp()
     eliminar_archivos_temp()
     mostrar_menu()
-    opcion = input(f"{fg('yellow')}Seleccione una opción: {attr('reset')}")
+
+    opcion_valida = False
+    while not opcion_valida:
+        opcion = input(f"{fg('yellow')}Seleccione una opción: {attr('reset')}")
+        if opcion.isdigit() and int(opcion) in range(1, 4):
+            opcion_valida = True
+        else:
+            print("Opción no válida. Por favor, seleccione una opción válida.")
+
     manejar_opcion(opcion)

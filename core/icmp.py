@@ -26,7 +26,7 @@ def escanear_ips(gateway):
     que se encuentra detrás del gateway proporcionado utilizando hilos."""
     if gateway == "No disponible":
         print(f"{fg('red')}\nNo se puede realizar un escaneo sobre una interfaz sin Gateway{attr('reset')}")
-        input(f"{fg('yellow')}\nPresione Enter para volver al menu principal.{attr('reset')}")
+        input(f"{fg('yellow')}\nEnter para volver al menu de interfaces.{attr('reset')}")
         return
     # Obtener los octetos de la dirección IP del gateway
     octetos_gateway = gateway.split('.')
@@ -50,7 +50,7 @@ def escanear_ips(gateway):
     
     # Mostrar la lista de direcciones IP activas
     if ips_activas:
-        print(f"{fg('yellow')}Las siguientes direcciones IP están activas:\n{attr('reset')}")
+        print(f"{fg('white')}Las siguientes direcciones IP están activas:\n{attr('reset')}")
         for ip in ips_activas:
             print(f"{fg('blue')}{ip}{attr('reset')}")
     else:
@@ -58,15 +58,18 @@ def escanear_ips(gateway):
 
     # Pedir al usuario que elija si desea continuar con el escaneo o escanear otra interfaz de red
     while True:
-        eleccion = input(f"{fg('yellow')}\nPresione Enter para continuar con el escaneo, o Q para escanear otra interfaz de red.{attr('reset')} ")
+        eleccion = input(f"{fg('yellow')}\nEnter para continuar con el escaneo, 'Q' para salir, 'R' para re-escanear: {attr('reset')}")
         if eleccion == "":
             # Continuar con el escaneo actual
             subprocess.run(["python", "core/macs.py"])
             subprocess.run(["python", "core/pong2.py"])
             break
-        elif eleccion == "Q":
+        elif eleccion == "R":
             # Escanear otra interfaz de red
             subprocess.run(["python", "core/pong.py"])
+            break
+        elif eleccion == "Q":
+            subprocess.run(["python", "menu.py"])
             break
         else:
             print(f"{fg('red')}Opción inválida.{attr('reset')}")

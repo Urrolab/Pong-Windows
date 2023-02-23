@@ -87,12 +87,13 @@ def main():
             pickle.dump(variables, f)
 
         # Se le pregunta al usuario si quiere analizar otra interfaz o salir
-        seleccion = input(stylize("Presione Enter para volver al menu de interfaces, 'Q' para salir o 'R' para escanear: ", fg("yellow")))
-        if seleccion == "Q":
+        seleccion = input(stylize("Enter para continuar, 'Q' para salir o 'R' para re-escanear: ", fg("yellow")))
+        if seleccion == "":
+            ejecutar_icmp()
+        elif seleccion == "Q":
             break
         elif seleccion == "R":
-            ejecutar_icmp()
-            break
+            main()
         
     print("¡Hasta pronto!")
 

@@ -1,4 +1,4 @@
-import wmi, os, pickle, subprocess
+import wmi, os, pickle
 from colored import fg, stylize, attr
 
 def ejecutar_icmp():

@@ -5,6 +5,15 @@ from colored import fg, attr
 titulo = pyfiglet.figlet_format("PONG")
 print(titulo)
 
+def crear_carpeta_temp():
+    # Especificamos la ruta del directorio
+    ruta = "core/temp"
+    
+    # Verificamos si la carpeta ya existe
+    if not os.path.exists(ruta):
+        # Creamos la carpeta
+        os.makedirs(ruta)
+
 def eliminar_archivos_temp():
     # Especificamos la ruta del directorio
     ruta = "core/temp"
@@ -59,6 +68,7 @@ def manejar_opcion(opcion):
 while True:
     os.system("cls")
     print(f"{titulo}Windows version\n=------------------------=\n")
+    crear_carpeta_temp()
     eliminar_archivos_temp()
     mostrar_menu()
     opcion = input(f"{fg('yellow')}Seleccione una opción: {attr('reset')}")

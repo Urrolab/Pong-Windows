@@ -12,9 +12,9 @@ def cargar_variables(nombre_archivo):
 def mostrar_informacion(interfaz, ipv4, gateway):
     """Muestra información sobre la interfaz, la dirección IPv4 y el gateway."""
     os.system("cls")
-    print(f"{fg('magenta')}{interfaz}{attr('reset')}")
-    print(f"{fg('green')}IPv4: {fg('blue')}{ipv4}{attr('reset')}")
-    print(f"{fg('green')}Gateway: {fg('blue')}{gateway}{attr('reset')}")
+    print(f"{fg('white')}Interfaz: {fg('magenta')}{interfaz}{attr('reset')}")
+    print(f"{fg('white')}IPv4: {fg('blue')}{ipv4}{attr('reset')}")
+    print(f"{fg('white')}Gateway: {fg('blue')}{gateway}{attr('reset')}")
 
 def ping(ip):
     """Ejecuta el comando ping para la dirección IP dada y devuelve el código de retorno."""
@@ -24,6 +24,10 @@ def ping(ip):
 def escanear_ips(gateway):
     """Realiza un ping a todas las direcciones IP en el rango de la red local
     que se encuentra detrás del gateway proporcionado utilizando hilos."""
+    if gateway == "No disponible":
+        print(f"{fg('red')}\nNo se puede realizar un escaneo sobre una interfaz sin Gateway{attr('reset')}")
+        input(f"{fg('yellow')}\nPresione Enter para volver al menu principal.{attr('reset')}")
+        return
     # Obtener los octetos de la dirección IP del gateway
     octetos_gateway = gateway.split('.')
     
@@ -48,10 +52,24 @@ def escanear_ips(gateway):
     if ips_activas:
         print(f"{fg('yellow')}Las siguientes direcciones IP están activas:\n{attr('reset')}")
         for ip in ips_activas:
-            print(ip)
+            print(f"{fg('blue')}{ip}{attr('reset')}")
     else:
         print(f"{fg('red')}No se encontraron direcciones IP activas.{attr('reset')}")
-    input(f"{fg('yellow')}\nPresione Enter para volver al menu principal.{attr('reset')}")
+
+    # Pedir al usuario que elija si desea continuar con el escaneo o escanear otra interfaz de red
+    while True:
+        eleccion = input(f"{fg('yellow')}\nPresione Enter para continuar con el escaneo, o Q para escanear otra interfaz de red.{attr('reset')} ")
+        if eleccion == "":
+            # Continuar con el escaneo actual
+            subprocess.run(["python", "core/macs.py"])
+            subprocess.run(["python", "core/pong2.py"])
+            break
+        elif eleccion == "Q":
+            # Escanear otra interfaz de red
+            subprocess.run(["python", "core/pong.py"])
+            break
+        else:
+            print(f"{fg('red')}Opción inválida.{attr('reset')}")
 
 if __name__ == '__main__':
     # Cargar las variables del archivo variables.dat

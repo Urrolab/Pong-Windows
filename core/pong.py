@@ -30,18 +30,18 @@ def imprimir_interfaz(interfaz):
     os.system("cls")
 
     # Se imprimen los detalles de la interfaz seleccionada en el formato indicado
-    print(f"{fg('green')}Interfaz: {fg('magenta')}{interfaz.Caption}{attr('reset')}")
-    print(f"{fg('green')}Dirección IPv4: {fg('blue')}{interfaz.IPAddress[0]}{attr('reset')}")
-    print(f"{fg('green')}Dirección IPv6: {fg('blue')}{interfaz.IPAddress[1]}{attr('reset')}")
-    print(f"{fg('green')}MAC Address: {fg('blue')}{interfaz.MACAddress}{attr('reset')}")
-    print(f"{fg('green')}Subnet Mask: {fg('blue')}{interfaz.IPSubnet[0]}{attr('reset')}")
+    print(f"{fg('white')}Interfaz: {fg('magenta')}{interfaz.Caption}{attr('reset')}")
+    print(f"{fg('white')}Dirección IPv4: {fg('blue')}{interfaz.IPAddress[0]}{attr('reset')}")
+    print(f"{fg('white')}Dirección IPv6: {fg('blue')}{interfaz.IPAddress[1]}{attr('reset')}")
+    print(f"{fg('white')}MAC Address: {fg('blue')}{interfaz.MACAddress}{attr('reset')}")
+    print(f"{fg('white')}Subnet Mask: {fg('blue')}{interfaz.IPSubnet[0]}{attr('reset')}")
     if hasattr(interfaz, 'Speed'):
-        print(f"{fg('green')}Velocidad de conexión: {fg('blue')}{interfaz.Speed} Mbps{attr('reset')}")
+        print(f"{fg('white')}Velocidad de conexión: {fg('blue')}{interfaz.Speed} Mbps{attr('reset')}")
     else:
-        print(f"{fg('green')}Velocidad de conexión: {fg('red')}No disponible{attr('reset')}")
-    print(f"{fg('green')}Estado de la conexión: {fg('blue')}{get_connection_status(interfaz)}{attr('reset')}")
+        print(f"{fg('white')}Velocidad de conexión: {fg('red')}No disponible{attr('reset')}")
+    print(f"{fg('white')}Estado de la conexión: {fg('blue')}{get_connection_status(interfaz)}{attr('reset')}")
     gateway = interfaz.DefaultIPGateway[0] if interfaz.DefaultIPGateway else stylize("No disponible", fg("red"))
-    print(f"{fg('green')}Gateway: {fg('blue')}{gateway}{attr('reset')}\n")
+    print(f"{fg('white')}Gateway: {fg('blue')}{gateway}{attr('reset')}\n")
 
 def guardar_variables(interfaz):
     # Se guarda la información de la interfaz seleccionada en un diccionario
